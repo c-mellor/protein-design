@@ -1,0 +1,33 @@
+<ROSETTASCRIPTS>
+	<SCOREFXNS>
+		<ScoreFunction name="score" weights="ref2015">
+			<Reweight scoretype = "atom_pair_constraint" weight = "1"/>
+      			<Reweight scoretype = "angle_constraint" weight = "1"/>
+		</ScoreFunction>
+	</SCOREFXNS>
+	<RESIDUE_SELECTORS>
+	</RESIDUE_SELECTORS>
+	<TASKOPERATIONS>
+		<IncludeCurrent name="input_sc"/>
+		<ExtraRotamersGeneric name="extra_rot" ex1="1" ex2="1" ex1aro="1" ex2aro="1"/>
+		<InitializeFromCommandline name="ifcl"/>
+	</TASKOPERATIONS>	
+	<FILTERS>
+		#This reports packstat if you want a measure of packing improvement after design#
+		<PackStat name = "pstat" threshold = "0.58" repeats = "25" confidence="0"/>
+	</FILTERS>
+	<SIMPLE_METRICS>
+		<TimingProfileMetric name="timing"/> 
+	</SIMPLE_METRICS>
+	<MOVERS>
+		<ConstraintSetMover name = "add_cst" cst_file="coordination.cst"/>
+		<FastRelax name="relax" scorefxn="score" task_operations="extra_rot"/>
+	</MOVERS>
+	<PROTOCOLS>
+		<Add mover_name="add_cst"/>
+		<Add mover_name="relax"/>
+		<Add filter_name="pstat"/>
+	</PROTOCOLS>
+</ROSETTASCRIPTS>
+
+

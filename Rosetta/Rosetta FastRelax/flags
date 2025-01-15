@@ -1,0 +1,11 @@
+-parser:protocol relax.xml
+-s re-do_m4D2_diformyl_no_H.pdb
+-in:file:native re-do_m4D2_diformyl_no_H.pdb
+-in:ignore_unrecognized_res
+-extra_res_fa DIF.params
+-relax:jump_move true
+-nstruct 50
+-out:path:all output/
+-out:file:scorefile score.sc 
+-packing:pack_missing_sidechains 0  
+-mute core.select.residue_selector.SecondaryStructureSelector
