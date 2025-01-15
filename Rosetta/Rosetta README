@@ -1,0 +1,20 @@
+## Rosetta relax
+# Test run
+Do a test run with 10 structures first to troubleshoot and iron out any errors before you throw 1000x runs
+into the system; then when you do your array, everything should go nice and smoothly. This uses the single
+slurm file.
+1. You will need the following files: an .xml Rosetta scripts file which does the relaxing; a coordination.cst
+file that sets up heme-protein bonding; a single_slurm.sh file for a small test run; flags (no file
+ending) which tells Rosetta which script to use, how many structures to generate.
+2. Make sure file names and atom names/numbers are all in agreement!! This is your number 1 source
+of errors. . .
+3. Once all your files are set up in a relax folder (also make an empty /output folder ), run sbatch
+single_slurm.sh
+4. It can take up to an hour for your test relax run; check the slurm.out file for errors as well as
+the Rosetta crash file
+# Production run
+1. This is very similar to the test run; before starting the real deal, put your test run results in their
+own folder so they don’t get mixed up with the proper array in the ’output’ directory
+2. Edit the array_slurm_serial.sh file to include a relevant run name and your username. Also
+change the flags file to nstruct 500, not 10
+3. Then you can just run sbatch array_slurm_serial.sh. This will take longer, closer to 5 hours.
